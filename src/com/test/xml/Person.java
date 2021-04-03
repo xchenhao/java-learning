@@ -1,4 +1,4 @@
-package com.test.xmlsax;
+package com.test.xml;
 
 public class Person {
     private String personId;

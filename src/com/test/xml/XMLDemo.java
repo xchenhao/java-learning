@@ -1,4 +1,4 @@
-package com.test.xmlsax;
+package com.test.xml;
 
 import org.xml.sax.SAXException;
 
@@ -24,7 +24,7 @@ public class XMLDemo {
         PersonHandler personHandler = new PersonHandler();
         // 4. 开始解析
         InputStream is = Thread.currentThread().getContextClassLoader().
-                getResourceAsStream("com/test/xmlsax/person.xml");
+                getResourceAsStream("com/test/xml/person.xml");
         saxParser.parse(is, personHandler);
         List<Person> persons = personHandler.getPersons();
         for (Person p: persons) {
