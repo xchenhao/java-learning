@@ -1,3 +1,4 @@
+package com.test.observer;
 
 // 观察者接口
 public interface Observer {

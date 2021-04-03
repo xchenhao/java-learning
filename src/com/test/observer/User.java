@@ -1,3 +1,5 @@
+package com.test.observer;
+
 // 具体的观察者
 public class User implements Observer{
     private String name;

@@ -1,3 +1,5 @@
+package com.test.observer;
+
 //import org.junit.Test;
 //
 //public class TestObserver {
