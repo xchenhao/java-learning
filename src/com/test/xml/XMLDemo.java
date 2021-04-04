@@ -1,5 +1,7 @@
 package com.test.xml;
 
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class XMLDemo {
@@ -141,5 +144,49 @@ public class XMLDemo {
         System.out.println(Arrays.toString(list.toArray()));
     }
 
+    // https://dom4j.github.io/
+    /**
+     * DOM4J 解析 XML
+     * 基于树型结构，第三方组件
+     * 解析速度快，效率更高，使用的 JAVA 中迭代器实现数据读取，在 Web 框架中使用较多（Hibernate）
+     *
+     */
+    @Test
+    public void dom4jParseXML() throws DocumentException {
+        // 1. 创建 DOM4J 的解析器对象
+        SAXReader reader = new SAXReader();
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("com/test/xml/person.xml");
+        org.dom4j.Document doc = reader.read(is);
+        org.dom4j.Element rootElement = doc.getRootElement();
+        Iterator<org.dom4j.Element> iterator = rootElement.elementIterator();
+        ArrayList<Person> persons = new ArrayList<>();
+        Person p = null;
+        while (iterator.hasNext()) {
+            p = new Person();
+
+            org.dom4j.Element e = iterator.next();
+            p.setPersonId(e.attributeValue("personid"));
+
+            Iterator<org.dom4j.Element> iterator1 = e.elementIterator();
+            while (iterator1.hasNext()) {
+                org.dom4j.Element next = iterator1.next();
+                String tag = next.getName();
+                if ("name".equals(tag)) {
+                    p.setName(next.getText());
+                } else if ("address".equals(tag)) {
+                    p.setAddress(next.getText());
+                } else if ("tel".equals(tag)) {
+                    p.setTel(next.getText());
+                } else if ("fax".equals(tag)) {
+                    p.setFax(next.getText());
+                } else if ("email".equals(tag)) {
+                    p.setEmail(next.getText());
+                }
+            }
+            persons.add(p);
+        }
+        System.out.println("结果");
+        System.out.println(Arrays.toString(persons.toArray()));
+    }
 
 }
