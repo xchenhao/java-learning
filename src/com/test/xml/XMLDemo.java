@@ -1,5 +1,9 @@
 package com.test.xml;
 
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -85,6 +89,57 @@ public class XMLDemo {
         System.out.println(Arrays.toString(persons.toArray()));
     }
 
+    // https://junit.org/junit4/
+    // http://www.jdom.org/downloads/index.html
+
+    /**
+     * JDOM 解析 XML
+     * 1. 与 DOM 类似基于树形结构
+     * 2. 与 DOM 的区别：
+     *   （1）第三方开源的组件
+     *   （2）实现使用 JAVA 的 Collections 接口
+     *   （3）效率比 DOM 更快
+     *
+     * @throws JDOMException
+     * @throws IOException
+     */
+    @Test
+    public void jdomParseXML() throws JDOMException, IOException {
+        // 直接创建 JDOM 解析器
+        SAXBuilder builder = new SAXBuilder();
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("com/test/xml/person.xml");
+        org.jdom2.Document build = builder.build(is);
+        Element rootElement = build.getRootElement();
+        List<Person> list = new ArrayList<>();
+        Person person = null;
+        List<Element> children = rootElement.getChildren();
+        for (Element element: children) {
+            person = new Person();
+
+            String personid = element.getAttributeValue("personid");
+            person.setPersonId(personid);
+
+            List<Element> children1 = element.getChildren();
+            for (Element e: children1) {
+                String tag = e.getName();
+                if ("name".equals(tag)) {
+                    person.setName(e.getText());
+                } else if ("address".equals(tag)) {
+                    person.setAddress(e.getText());
+                } else if ("tel".equals(tag)) {
+                    person.setTel(e.getText());
+                } else if ("fax".equals(tag)) {
+                    person.setFax(e.getText());
+                } else if ("email".equals(tag)) {
+                    person.setEmail(e.getText());
+                }
+            }
+
+            list.add(person);
+        }
+        System.out.println("结果：");
+        System.out.println(Arrays.toString(list.toArray()));
+    }
 
 
 }
