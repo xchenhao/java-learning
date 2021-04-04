@@ -22,7 +22,7 @@
     维护一个对 ConcreteSubject 的引用；
     特定状态与 ConcreteSubject 同步；
     实现 Observer 接口，通过 update() 方法接收 ConcreteSubject 的通知
-    
+
     
  作用：
  观察者模式在被观察者和观察者之间建立一个抽象的耦合。被观察者角色所知道的只是一个具体观察者列表。

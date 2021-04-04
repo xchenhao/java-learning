@@ -1,5 +1,8 @@
 package com.test.xml;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.Xpp3DomDriver;
+import com.thoughtworks.xstream.io.xml.XppDriver;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 import org.jdom2.Element;
@@ -12,8 +15,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.*;
-import java.io.IOException;
-import java.io.InputStream;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -187,6 +191,66 @@ public class XMLDemo {
         }
         System.out.println("结果");
         System.out.println(Arrays.toString(persons.toArray()));
+    }
+
+
+    /**
+     * 把对象转成 XML 文件写入
+     */
+    @Test
+    public void xmlEncoder() throws FileNotFoundException {
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("test.xml"));
+        XMLEncoder xmlEncoder = new XMLEncoder(bos);
+        Person p = new Person();
+        p.setPersonId("1212");
+        p.setName("chen");
+        p.setAddress("beijing");
+        p.setEmail("abc@163.com");
+        p.setFax("12345678");
+        p.setTel("13812341234");
+
+        xmlEncoder.writeObject(p);
+        xmlEncoder.close();;
+    }
+
+    /**
+     * 从 XML 文件中读取对象
+     */
+    @Test
+    public void xmlDecode() throws FileNotFoundException {
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream("test.xml"));
+        XMLDecoder xmlDecoder = new XMLDecoder(in);
+        Person p = (Person)xmlDecoder.readObject();
+        System.out.println(p);
+    }
+
+
+    // https://x-stream.github.io/download.html
+    // xstream, xpp, xmlpull
+    // https://blog.csdn.net/sun8112133/article/details/90372760
+
+    /**
+     * 使用第三方 xstream 组件实现 XML 的解析与生成
+     */
+    @Test
+    public void xStream() {
+        Person p = new Person();
+        p.setPersonId("1212");
+        p.setName("chen");
+        p.setAddress("beijing");
+        p.setEmail("abc@163.com");
+        p.setFax("12345678");
+        p.setTel("13812341234");
+
+        XStream xStream = new XStream(new XppDriver());
+        xStream.alias("person", Person.class);  // 将 person 作为别名节点
+        xStream.useAttributeFor(Person.class, "personId");  // 将 personId 作为属性
+        String xml = xStream.toXML(p);
+        System.out.println(xml);
+
+        // 解析 XML
+        Person person = (Person)xStream.fromXML(xml);
+        System.out.println(person);
     }
 
 }

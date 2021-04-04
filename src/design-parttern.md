@@ -530,4 +530,5 @@ public class TestObserver {
         message.removeObserver(user1);
         message.setMessage("哈哈哈");
     }
+}
 ```

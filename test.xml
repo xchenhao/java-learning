@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="13" class="java.beans.XMLDecoder">
+ <object class="com.test.xml.Person">
+  <void property="address">
+   <string>beijing</string>
+  </void>
+  <void property="email">
+   <string>abc@163.com</string>
+  </void>
+  <void property="fax">
+   <string>12345678</string>
+  </void>
+  <void property="name">
+   <string>chen</string>
+  </void>
+  <void property="personId">
+   <string>1212</string>
+  </void>
+  <void property="tel">
+   <string>13812341234</string>
+  </void>
+ </object>
+</java>
