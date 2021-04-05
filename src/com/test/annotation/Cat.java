@@ -1,8 +1,31 @@
 package com.test.annotation;
 
+import java.util.Arrays;
+
+@MyAnnotation(name = "bin", like = {"金鱼","鱼干"}, color = Color.GREEN)
 public class Cat {
     private String name;
     private int age;
+
+    private String[] like;
+
+    public String[] getLike() {
+        return like;
+    }
+
+    public void setLike(String[] like) {
+        this.like = like;
+    }
+
+    private Color color;
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     public String getName() {
         return name;
@@ -35,6 +58,8 @@ public class Cat {
         return "Cat{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
+                ", like=" + Arrays.toString(like) +
+                ", color=" + color +
                 '}';
     }
 
