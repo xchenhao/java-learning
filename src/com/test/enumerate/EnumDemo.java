@@ -47,4 +47,19 @@ public class EnumDemo {
         enumMap.put(Color.GREEN, "green");
         enumMap.put(Color.BLUE, "blue");
     }
+
+    @Test
+    public void test4() {
+        System.out.println(Color.RED);
+
+        System.out.println(Color.BLUE.getColor());
+
+        System.out.println(Color.GREEN.getColor2());
+    }
+
+    // 使用枚举实现单例设计模式
+    @Test
+    public void test5() {
+        SingleTon.SINGLETON.method();
+    }
 }
