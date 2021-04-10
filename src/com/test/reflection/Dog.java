@@ -31,6 +31,13 @@ public class Dog {
         this.color = color;
     }
 
+    private void set() {
+        System.out.println("调用了 set 方法");
+    }
+    protected void get() {
+        System.out.println("调用了 get 方法");
+    }
+
     @Override
     public String toString() {
         return "Dog{" +

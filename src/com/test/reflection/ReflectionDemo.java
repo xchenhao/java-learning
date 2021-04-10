@@ -2,10 +2,7 @@ package com.test.reflection;
 
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 
 public class ReflectionDemo {
     /**
@@ -93,4 +90,48 @@ public class ReflectionDemo {
         }
     }
 
+    @Test
+    public void test5() {
+        Class<Dog> dogClass = Dog.class;
+        Package aPackage = dogClass.getPackage();
+        System.out.println(aPackage.getName()); // 获取包名
+
+        Dog dog = new Dog("wangwang", 4, "白色");
+
+        Method[] methods = dogClass.getMethods();  // 获取公共的方法（包括继承的公有方法）
+        for (int i = 0; i < methods.length; i++) {
+            System.out.println(methods[i]);
+            if (methods[i].getName().equals("toString")) {
+                try {
+                    String s = (String)methods[i].invoke(dog);
+                    System.out.println(s);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        System.out.println("--------------------------------------");
+        // 访问私有方法（获取到本类中定义的所有方法，不包括父类的）
+        Method[] declaredMethods = dogClass.getDeclaredMethods();
+        for (int i = 0; i < declaredMethods.length; i++) {
+            System.out.println(declaredMethods[i].getName());
+
+            if (declaredMethods[i].getName().equals("set")) {
+                // 设置私有方法可以被访问（去除访问修饰符的检查）
+                declaredMethods[i].setAccessible(true);  // 不设置的话：java.lang.IllegalAccessException: cannot access a member of class com.test.reflection.Dog with modifiers "private"
+
+                try {
+                    declaredMethods[i].invoke(dog);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
 }
