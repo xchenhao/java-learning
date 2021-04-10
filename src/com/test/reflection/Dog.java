@@ -5,6 +5,8 @@ public class Dog {
     private int age;
     private String color;
 
+    public int type;
+
     public String getName() {
         return name;
     }
@@ -44,6 +46,7 @@ public class Dog {
         this.color = color;
     }
 
+    // 最好都要保留默认的无参构造方法，通过反射 newInstance() 可生成对象
     public Dog() {
     }
 }
