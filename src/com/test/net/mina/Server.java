@@ -4,6 +4,7 @@ package com.test.net.mina;
 
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.codec.serialization.ObjectSerializationCodecFactory;
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.transport.socket.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
@@ -19,7 +20,9 @@ public class Server {
         SocketAcceptor acceptor = new NioSocketAcceptor();
         DefaultIoFilterChainBuilder filterChain = acceptor.getFilterChain();
         // 设定一个过滤器，一行一行地读取数据（\r\n）
-        filterChain.addLast("myChain", new ProtocolCodecFilter(new TextLineCodecFactory()));
+        // filterChain.addLast("myChain", new ProtocolCodecFilter(new TextLineCodecFactory()));
+        // 设定过滤器以对象为单位读取数据
+        filterChain.addLast("objectFilter", new ProtocolCodecFilter(new ObjectSerializationCodecFactory()));
         // 设置服务器端的消息处理器
         acceptor.setHandler(new MinaServerHandler());
         int port = 9999;  // 服务器的端口号

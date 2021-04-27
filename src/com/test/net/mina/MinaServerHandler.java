@@ -24,9 +24,12 @@ public class MinaServerHandler extends IoHandlerAdapter {
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {
         super.messageReceived(session, message);
-        String msg = (String) message;  // 接收到的消息对象
+//        String msg = (String) message;  // 接收到的消息对象
+        Message msg = (Message) message;
         System.out.println("收到客户端发来的消息：" + msg);
-        session.write("echo: " + msg);  // 向客户端发送消息对象
+
+        msg.setInfo("吃什么呢？");
+        session.write(msg);  // 向客户端发送消息对象
 
     }
 }

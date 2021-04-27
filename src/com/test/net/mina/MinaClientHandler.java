@@ -20,8 +20,10 @@ public class MinaClientHandler extends IoHandlerAdapter {
     @Override
     public void messageReceived(IoSession session, Object message) throws Exception {
         super.messageReceived(session, message);
-        String msg = (String) message;
+//        String msg = (String) message;
+        Message msg = (Message) message;
         System.out.println(msg);
+
 
     }
 }
