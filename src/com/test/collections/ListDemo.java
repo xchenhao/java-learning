@@ -10,7 +10,7 @@ import java.util.Vector;
 /**
  * Collection 接口：用于存储单个对象的集合
  * List 接口：
- * （1）有序的
+ * （1）有序的，可以有重复的元素
  * （2）允许多个 null 元素
  * （3）具体的常用实现类：ArrayList, Vector, LinkedList
  * 在实际开发中如何选择 List 的具体实现？
@@ -18,7 +18,6 @@ import java.util.Vector;
  * 2. 是否频繁插入、删除操作（LinkedList）
  * 3. 是否是存储后遍历（ArrayList）
  * 面试题：动态数组的实现
- * Set 接口：
  */
 public class ListDemo {
 
