@@ -3,6 +3,7 @@ package com.test.collections;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
@@ -12,9 +13,34 @@ import java.util.Vector;
  * （1）有序的
  * （2）允许多个 null 元素
  * （3）具体的常用实现类：ArrayList, Vector, LinkedList
+ * 在实际开发中如何选择 List 的具体实现？
+ * 1. 安全性问题（Vector 或通过工具类包装的 ArrayList）
+ * 2. 是否频繁插入、删除操作（LinkedList）
+ * 3. 是否是存储后遍历（ArrayList）
+ * 面试题：动态数组的实现
  * Set 接口：
  */
 public class ListDemo {
+
+    /**
+     * LinkedList
+     * 1. 实现原理：采用双向链表结构实现
+     * 2. 适合插入，删除操作，性能高
+     */
+    @Test
+    public void linkedList()
+    {
+        LinkedList<String> list = new LinkedList<>();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            System.out.println(list.get(i));
+        }
+
+    }
 
     /**
      * Vector JDK 1.0 引入
