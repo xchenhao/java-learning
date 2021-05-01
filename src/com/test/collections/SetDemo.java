@@ -3,6 +3,7 @@ package com.test.collections;
 import org.junit.Test;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -11,8 +12,37 @@ import java.util.TreeSet;
  * 1. 无序（不保证顺序）
  * 2. 不允许重复元素
  * HashSet, TreeSet, LinkedHashSet
+ *
+ * 如果要排序，选择 TreeSet
+ * 如果不要排序，也不用保证顺序选择 HashSet
+ * 如果不要排序，要保证顺序选择 LinkedHashSet
  */
 public class SetDemo {
+
+    /**
+     * 哈希表和链表的实现
+     * 维护着一个运行于所有条目的双重链接列表，此链接列表定义了迭代顺序，即按照将元素插入到 set 中的顺序（插入顺序）进行迭代
+     */
+    @Test
+    public void linkedHashSet()
+    {
+        LinkedHashSet<Cat> set = new LinkedHashSet<>();
+
+        Cat c1 = new Cat("喵喵 1", 5, 1);
+        Cat c2 = new Cat("喵喵 2", 2, 2);
+        Cat c3 = new Cat("喵喵 3", 5, 3);
+        Cat c4 = new Cat("喵喵 4", 5, 1);
+
+        set.add(c1);
+        set.add(c2);
+        set.add(c3);
+        set.add(c4);
+
+        for (Cat c :
+                set) {
+            System.out.println(c);
+        }
+    }
 
     /**
      * 有序的 Set
