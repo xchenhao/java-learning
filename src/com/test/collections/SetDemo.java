@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Set 接口：
@@ -12,6 +13,33 @@ import java.util.Set;
  * HashSet, TreeSet, LinkedHashSet
  */
 public class SetDemo {
+
+    /**
+     * 有序的 Set
+     * 基于 TreeMap（二叉树数据结构），对象需要比较大小，通过对象比较器来实现
+     * 对象比较器还可以用来去除重复元素，如果自定义的数据类没有实现比较器接口，将无法添加到 TreeSet 集合中
+     */
+    @Test
+    public void treeSet()
+    {
+        TreeSet<Cat> tree = new TreeSet<>(new CatComparator());
+
+        Cat c1 = new Cat("喵喵 1", 5, 1);
+        Cat c2 = new Cat("喵喵 2", 2, 2);
+        Cat c3 = new Cat("喵喵 3", 5, 3);
+        Cat c4 = new Cat("喵喵 4", 5, 1);
+
+        tree.add(c1);
+        tree.add(c2);
+        tree.add(c3);
+        tree.add(c4);
+
+        System.out.println(tree.size());  // 2（ 3 个 age=5 当做同一个对象）
+        for (Cat c: tree) {
+            System.out.println(c);
+        }
+    }
+
 
     /**
      * HashSet
