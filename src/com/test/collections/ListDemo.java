@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Collection 接口：用于存储单个对象的集合
@@ -16,7 +17,34 @@ import java.util.List;
 public class ListDemo {
 
     /**
-     * ArrayList
+     * Vector JDK 1.0 引入
+     * 1. 实现原理：采用动态对象数组实现，默认构造方法创建一个大小为 10 的对象数组
+     * 2. 扩充的算法：当增量为 0 时，扩充为原来大小的 2 倍；当增量大于 0 时，扩充为原来大小 + 增量
+     * 3. 不适合删除或插入操作
+     * 4. 为了防止数组动态扩充次数过多，建议创建 Vector 时，给定初始容量
+     * 5. 线程安全，适合在多线程时访问时使用，在单线程下使用效率较低
+     *
+     * 面试题：Vector 与 ArrayList 的区别？
+     */
+    @Test
+    public void vector() {
+        Vector<String> v = new Vector<>();
+        v.add("A");
+        v.add("B");
+        v.add("C");
+
+        for (int i = 0; i < v.size(); i++) {
+            System.out.println(v.get(i));
+        }
+    }
+
+    /**
+     * ArrayList JDK 1.2 引入（1.8 API）
+     * 1. 实现原理：采用动态对象数组实现，默认构造方法创建了一个空数组
+     * 2. 第一次添加元素，扩展容量为 10，之后的扩充算法：原来数组大小 + 原来数组的一半
+     * 3. 不适合进行删除或插入操作
+     * 4. 为了防止数组动态扩充次数过多，建议创建 ArrayList 时，给定初始容量
+     * 5. 多线程中使用不安全，适合在单线程访问时使用，效率较高
      */
     @Test
     public void arrayList()
