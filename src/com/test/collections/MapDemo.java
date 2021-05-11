@@ -15,6 +15,22 @@ import java.util.Set;
  */
 public class MapDemo {
 
+    /**
+     * HashMap 的实现原理：
+     * 1. 基于哈希表（数组+链表+二叉树（红黑树）） JDK 1.8
+     * 2. 默认加载因为为 0.75，默认数组大小为 16
+     * 3. 把对象存储到哈希表中，如何存储？
+     *    把 key 对象通过 hash() 方法计算 hash 值，然后用这个 hash 值对数组长度取余数（默认 16），来决定该 key 对象
+     * 在数组中存储的位置，当这个位置有多个对象时，以链表结构存储，在 JDK 1.8 后，当链表长度大于 8 时，链表将转换为红黑树结构存储
+     * 这样的目的，是为了取值时更快，存储的数据量越大，性能的表现越明显
+     *
+     * 4. 扩充原理：当数组的容量超过了 75%，那么表示该数组需要扩充，如何扩充？
+     * 扩充的算法：当前数组容量 << 1（相当于是乘于 2），扩大 1 倍，扩充次数过多，会影响性能，每次扩充表示哈希表重新
+     *   散列（重新计算每个对象的存储位置），我们在开发中尽量要减少扩充次数带来的性能问题。
+     *
+     * 5. 线程不安全，适合在单线程中使用
+     *
+     */
     @Test
     public void hashMap()
     {
@@ -57,6 +73,13 @@ public class MapDemo {
         map.forEach((k, v) -> System.out.println(k + "+" + v));
 
         System.out.println(map.containsKey(7) + "  " + map.containsValue("Bob"));
+
+        // hash
+        Integer key = 1434;
+        int h;
+        System.out.println((h = key.hashCode()) ^ (h >>> 16));
+        System.out.println(1434 & 15);
+        System.out.println(1434 % 16);
     }
 
     public static void main(String[] args) {
