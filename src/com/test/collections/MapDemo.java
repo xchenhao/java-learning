@@ -2,18 +2,50 @@ package com.test.collections;
 
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Map 接口：
  * 1. 键值对存储一组对象
  * 2. Key 不能重复（唯一），Value 可以重复
  * 3. 具体的实现类：HashMap, TreeMap, HashTable, LinkedHashMap
+ * 4. HashMap 与 HashTable 的区别？
  */
 public class MapDemo {
+
+    /**
+     * LinkedHashMap 是 HashMap 的子类，由于 HashMap 不能保证顺序恒久不变，此类使用双重链表来维护
+     *   元素添加的顺序
+     */
+    @Test
+    public void LinkedHashMap()
+    {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("one", "Lily");
+        map.put("two", "Tom");
+        map.put("three", "Jack");
+
+        map.forEach((key, value) -> {System.out.println(key + "->" + value);});
+    }
+
+    /**
+     * JDK 1.0 开始
+     * 基于哈希表实现（数组+链表）
+     * 默认数组大小为 11，加载因子为 0.75
+     * 扩充方式：(原数组大小 << 1) + 1
+     * 线程安全的，用在多线程访问时
+     */
+    @Test
+    public void HashTable()
+    {
+        Map<String, String> table = new Hashtable<>();
+        table.put("one", "Lily");
+        table.put("two", "Tom");
+        table.put("three", "Jack");
+
+        table.forEach((key, value) -> {System.out.println(key + "->" + value);});
+    }
+
 
     /**
      * HashMap 的实现原理：
